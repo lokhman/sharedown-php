@@ -1,0 +1,23 @@
+{
+    "name": "lokhman/sharedown-php",
+    "type": "library",
+    "description": "Client library for Sharedown project",
+    "keywords": ["sharedown", "client"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Alexander Lokhman",
+            "email": "alex.lokhman@gmail.com"
+        }
+    ],
+    "autoload": {
+        "classmap": ["src/"]
+    },
+    "require": {
+        "php": ">=5.5.9"
+    },
+    "support": {
+        "issues": "https://github.com/lokhman/sharedown-php/issues",
+        "source": "https://github.com/lokhman/sharedown-php"
+    }
+}
