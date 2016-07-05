@@ -10,9 +10,6 @@ class Sharedown {
 
     protected $host;
     protected $scheme;
-    protected $login;
-    protected $password;
-
     protected $session;
     protected $level;
 
@@ -55,7 +52,7 @@ class Sharedown {
      *
      * @throws SharedownException
      */
-    protected function request($method, $uri, $data = null, $isStateful = false, array $params = [], array $headers = []) {
+    protected function request($method, $uri, $data = null, $isStateful = false, array $params = [], array &$headers = []) {
         $fp = @fsockopen($this->scheme[0] . $this->host, $this->scheme[1], $errno, $errstr);
         if ($fp === false) {
             throw new SharedownException($errstr, $errno);
@@ -98,7 +95,7 @@ class Sharedown {
 
         $response = '';
         while (!feof($fp)) {
-            $response .= fread($fp, 1024);
+            $response .= fread($fp, 4096);
         }
         fclose($fp);
 
@@ -133,8 +130,8 @@ class Sharedown {
      *
      * @throws SharedownException
      */
-    protected function get($uri, $isStateful = false, array $params = [], array $headers = []) {
-        return $this->request('GET', $uri, null, $isStateful, $params , $headers);
+    protected function get($uri, $isStateful = false, array $params = [], array &$headers = []) {
+        return $this->request('GET', $uri, null, $isStateful, $params, $headers);
     }
 
     /**
@@ -150,7 +147,7 @@ class Sharedown {
      *
      * @throws SharedownException
      */
-    protected function post($uri, $data, $isStateful = false, array $params = [], array $headers = []) {
+    protected function post($uri, $data, $isStateful = false, array $params = [], array &$headers = []) {
         return $this->request('POST', $uri, $data, $isStateful, $params, $headers);
     }
 
@@ -167,7 +164,7 @@ class Sharedown {
      *
      * @throws SharedownException
      */
-    protected function patch($uri, $data, $isStateful = false, array $params = [], array $headers = []) {
+    protected function patch($uri, $data, $isStateful = false, array $params = [], array &$headers = []) {
         return $this->request('PATCH', $uri, $data, $isStateful, $params, $headers);
     }
 
@@ -183,8 +180,8 @@ class Sharedown {
      *
      * @throws SharedownException
      */
-    protected function delete($uri, $isStateful = false, array $params = [], array $headers = []) {
-        return $this->request('DELETE', $uri, null, $isStateful, $params , $headers);
+    protected function delete($uri, $isStateful = false, array $params = [], array &$headers = []) {
+        return $this->request('DELETE', $uri, null, $isStateful, $params, $headers);
     }
 
     /**
@@ -242,8 +239,6 @@ class Sharedown {
             'password' => $password,
         ]);
 
-        $this->login = $login;
-        $this->password = $password;
         $this->session = $response['session'];
         $this->level = $response['level'];
 
