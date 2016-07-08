@@ -1,4 +1,25 @@
 <?php
+/**
+ * Copyright (c) 2016 Alexander Lokhman <alex.lokhman@gmail.com>
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
 
 /**
  * Client library for Sharedown project.
@@ -21,7 +42,7 @@ class Sharedown {
     /**
      * Sharedown client constructor.
      *
-     * @param string $server    Backend server URL, e.g. <b>"https://share.example.com:8080"</b>.
+     * @param string $server Backend server URL, e.g. <b>"https://share.example.com:8080"</b>.
      *
      * @throws InvalidArgumentException
      */
@@ -41,14 +62,14 @@ class Sharedown {
     /**
      * Performs memory-safe request to the server API.
      *
-     * @param string $method    Request method, e.g. <b>"GET"</b>, <b>"POST"</b>, <b>"PATCH"</b>, etc.
-     * @param string $uri       Request URI, e.g. <b>"/files"</b>.
-     * @param mixed $data       [optional] <p>Data to pass with the request.</p>
-     * @param bool $isStateful  [optional] <p>If the request is stateful.</p>
-     * @param array $params     [optional] <p>Additional query string parameters.</p>
-     * @param array $headers    [optional] <p>Additional headers.</p>
+     * @param string $method     Request method, e.g. <b>"GET"</b>, <b>"POST"</b>, <b>"PATCH"</b>, etc.
+     * @param string $uri        Request URI, e.g. <b>"/files"</b>.
+     * @param mixed  $data       [optional] <p>Data to pass with the request.</p>
+     * @param bool   $isStateful [optional] <p>If the request is stateful.</p>
+     * @param array  $params     [optional] <p>Additional query string parameters.</p>
+     * @param array  $headers    [optional] <p>Additional headers.</p>
      *
-     * @return mixed            JSON decoded data, usually an array of values.
+     * @return mixed JSON decoded data, usually an array of values.
      *
      * @throws SharedownException
      */
@@ -77,7 +98,7 @@ class Sharedown {
         $headers['Host'] = $this->host;
         $headers['Connection'] = 'close';
 
-        fwrite($fp, sprintf("%s /api%s HTTP/1.1\r\n", $method, $uri));
+        fwrite($fp, sprintf("%s %s HTTP/1.1\r\n", $method, $uri));
         foreach ($headers as $header => $value) {
             fwrite($fp, $header . ': ' . $value . "\r\n");
         }
@@ -121,12 +142,12 @@ class Sharedown {
     /**
      * Performs GET request to the server API.
      *
-     * @param string $uri       Request URI, e.g. <b>"/files"</b>.
-     * @param bool $isStateful  [optional] <p>If the request is stateful.</p>
-     * @param array $params     [optional] <p>Additional query string parameters.</p>
-     * @param array $headers    [optional] <p>Additional headers.</p>
+     * @param string $uri        Request URI, e.g. <b>"/files"</b>.
+     * @param bool   $isStateful [optional] <p>If the request is stateful.</p>
+     * @param array  $params     [optional] <p>Additional query string parameters.</p>
+     * @param array  $headers    [optional] <p>Additional headers.</p>
      *
-     * @return mixed            JSON decoded data, usually an array of values.
+     * @return mixed JSON decoded data, usually an array of values.
      *
      * @throws SharedownException
      */
@@ -137,13 +158,13 @@ class Sharedown {
     /**
      * Performs POST request to the server API.
      *
-     * @param string $uri       Request URI, e.g. <b>"/files"</b>.
-     * @param mixed $data       [optional] <p>Data to pass with the request.</p>
-     * @param bool $isStateful  [optional] <p>If the request is stateful.</p>
-     * @param array $params     [optional] <p>Additional query string parameters.</p>
-     * @param array $headers    [optional] <p>Additional headers.</p>
+     * @param string $uri        Request URI, e.g. <b>"/files"</b>.
+     * @param mixed  $data       [optional] <p>Data to pass with the request.</p>
+     * @param bool   $isStateful [optional] <p>If the request is stateful.</p>
+     * @param array  $params     [optional] <p>Additional query string parameters.</p>
+     * @param array  $headers    [optional] <p>Additional headers.</p>
      *
-     * @return mixed            JSON decoded data, usually an array of values.
+     * @return mixed JSON decoded data, usually an array of values.
      *
      * @throws SharedownException
      */
@@ -154,13 +175,13 @@ class Sharedown {
     /**
      * Performs PATCH request to the server API.
      *
-     * @param string $uri       Request URI, e.g. <b>"/files"</b>.
-     * @param mixed $data       [optional] <p>Data to pass with the request.</p>
-     * @param bool $isStateful  [optional] <p>If the request is stateful.</p>
-     * @param array $params     [optional] <p>Additional query string parameters.</p>
-     * @param array $headers    [optional] <p>Additional headers.</p>
+     * @param string $uri        Request URI, e.g. <b>"/files"</b>.
+     * @param mixed  $data       [optional] <p>Data to pass with the request.</p>
+     * @param bool   $isStateful [optional] <p>If the request is stateful.</p>
+     * @param array  $params     [optional] <p>Additional query string parameters.</p>
+     * @param array  $headers    [optional] <p>Additional headers.</p>
      *
-     * @return mixed            JSON decoded data, usually an array of values.
+     * @return mixed JSON decoded data, usually an array of values.
      *
      * @throws SharedownException
      */
@@ -171,12 +192,12 @@ class Sharedown {
     /**
      * Performs DELETE request to the server API.
      *
-     * @param string $uri       Request URI, e.g. <b>"/files"</b>.
-     * @param bool $isStateful  [optional] <p>If the request is stateful.</p>
-     * @param array $params     [optional] <p>Additional query string parameters.</p>
-     * @param array $headers    [optional] <p>Additional headers.</p>
+     * @param string $uri        Request URI, e.g. <b>"/files"</b>.
+     * @param bool   $isStateful [optional] <p>If the request is stateful.</p>
+     * @param array  $params     [optional] <p>Additional query string parameters.</p>
+     * @param array  $headers    [optional] <p>Additional headers.</p>
      *
-     * @return mixed            JSON decoded data, usually an array of values.
+     * @return mixed JSON decoded data, usually an array of values.
      *
      * @throws SharedownException
      */
@@ -187,7 +208,7 @@ class Sharedown {
     /**
      * Returns current user access level.
      *
-     * @return string|null  User access level, e.g. <b>"USER"</b>, <b>"ADMIN"</b>, etc.
+     * @return string|null User access level, e.g. <b>"USER"</b>, <b>"ADMIN"</b>, etc.
      */
     public function getLevel() {
         return $this->level;
@@ -196,12 +217,12 @@ class Sharedown {
     /**
      * Returns current server version number.
      *
-     * @return string   Server version number, e.g. <b>"0.1"</b>.
+     * @return string Server version number, e.g. <b>"0.1"</b>.
      *
      * @throws SharedownException
      */
     public function getServerVersion() {
-        return $this->get('/')['version'];
+        return $this->get('/api')['version'];
     }
 
     /**
@@ -213,7 +234,7 @@ class Sharedown {
      */
     public function isAuthenticated() {
         try {
-            $this->get('/auth', true);
+            $this->get('/api/auth', true);
             return true;
         } catch (SharedownException $ex) {
             if ($ex->getStatusCode() == 403) {
@@ -226,15 +247,15 @@ class Sharedown {
     /**
      * Logs in user by the given credentials.
      *
-     * @param string $login     User username to log in.
-     * @param string $password  User password to log in.
+     * @param string $login    User username to log in.
+     * @param string $password User password to log in.
      *
-     * @return string           Current auth session.
+     * @return string Current auth session.
      *
      * @throws SharedownException
      */
     public function login($login, $password) {
-        $response = $this->post('/auth/login', [
+        $response = $this->post('/api/auth/login', [
             'login' => $login,
             'password' => $password,
         ]);
@@ -252,7 +273,7 @@ class Sharedown {
      */
     public function logout() {
         try {
-            $this->get('/auth/logout', true);
+            $this->get('/api/auth/logout', true);
             $this->level = null;
         } catch (SharedownException $ex) {
             if ($ex->getStatusCode() != 403) {
@@ -264,15 +285,15 @@ class Sharedown {
     /**
      * Uploads the given file to the server.
      *
-     * @param SplFileInfo|string $file  File to upload to the server.
-     * @param string|null $folder       [optional] <p>Folder to group the uploaded file.</p>
-     * @param string|null $caption      [optional] <p>Alternative file name.</p>
-     * @param string|null $password     [optional] <p>Password to secure file download.</p>
-     * @param bool $isPermanent         [optional] <p><b>TRUE</b> if file will have no expiry date.</p>
-     * @param bool $isPublic            [optional] <p><b>TRUE</b> if file will be displayed in the feed.</p>
-     * @param string|null $contentType  [optional] <p>Advisory file MIME content type.</p>
+     * @param SplFileInfo|string $file        File to upload to the server.
+     * @param string|null        $folder      [optional] <p>Folder to group the uploaded file.</p>
+     * @param string|null        $caption     [optional] <p>Alternative file name.</p>
+     * @param string|null        $password    [optional] <p>Password to secure file download.</p>
+     * @param bool               $isPermanent [optional] <p><b>TRUE</b> if file will have no expiry date.</p>
+     * @param bool               $isPublic    [optional] <p><b>TRUE</b> if file will be displayed in the feed.</p>
+     * @param string|null        $contentType [optional] <p>Advisory file MIME content type.</p>
      *
-     * @return string                   The key of the uploaded file.
+     * @return string The key of the uploaded file.
      *
      * @throws SharedownException
      */
@@ -304,7 +325,7 @@ class Sharedown {
         if (is_string($contentType) && $contentType) {
             $headers['Content-Type'] = $contentType;
         }
-        return $this->post('/upload', $file, true, [], $headers)['key'];
+        return $this->post('/api/upload', $file, true, [], $headers)['key'];
     }
 
     /**
@@ -312,37 +333,37 @@ class Sharedown {
      *
      * @param array $params [optional] <p>Additional search parameters, e.g. <b>login</b>, <b>search</b>, <b>folder</b>, etc.</p>
      *
-     * @return array        Array of file details arrays.
+     * @return array Array of file details arrays.
      *
      * @throws SharedownException
      */
     public function getFiles(array $params = []) {
-        return $this->get('/files', true, $params)['files'];
+        return $this->get('/api/files', true, $params)['files'];
     }
 
     /**
      * Returns file details by the given key.
      *
-     * @param string $key   Key of the file.
+     * @param string $key Key of the file.
      *
-     * @return array        File details array.
+     * @return array File details array.
      *
      * @throws SharedownException
      */
     public function getFile($key) {
-        return $this->get('/files/' . $key, true);
+        return $this->get('/api/files/' . $key, true);
     }
 
     /**
      * Updates the file details.
      *
-     * @param string $key   Key of the file.
-     * @param array $file   File details array with <b>password</b>, <b>caption</b>, and/or <b>folder</b> keys.
+     * @param string $key  Key of the file.
+     * @param array  $file File details array with <b>password</b>, <b>caption</b>, and/or <b>folder</b> keys.
      *
      * @throws SharedownException
      */
     public function setFile($key, array $file) {
-        $this->patch('/files/' . $key, array_intersect_key($file, [
+        $this->patch('/api/files/' . $key, array_intersect_key($file, [
             'password' => null,
             'caption' => null,
             'folder' => null,
@@ -352,34 +373,50 @@ class Sharedown {
     /**
      * Removes the file by the given key.
      *
-     * @param string $key   Key of the file.
+     * @param string $key Key of the file.
      *
      * @throws SharedownException
      */
     public function removeFile($key) {
-        $this->delete('/files/' . $key, true);
+        $this->delete('/api/files/' . $key, true);
     }
 
     /**
-     * Returns the feed of the current user.
+     * Returns the feed of the user by login.
      *
-     * @return array    Feed details array.
+     * @param string $login    Feed login.
+     * @param string $password [optional] <p>Feed password.</p>
+     *
+     * @return array Array of files from the feed.
+     */
+    public function getFeed($login, $password = null) {
+        $headers = [];
+        if ($password) {
+            $headers['Authorization'] = 'Basic ' . base64_encode($login . ':' . $password);
+        }
+        return $this->get('/feed/' . $login . '/json', false, [], $headers)['feed'];
+    }
+
+    /**
+     * Returns the feed details of the current user.
+     *
+     * @return array Feed details array.
      *
      * @throws SharedownException
      */
-    public function getFeed() {
-        return $this->get('/feed', true);
+    public function getFeedDetails() {
+        return $this->get('/api/feed', true);
     }
 
     /**
      * Updates the feed details.
      *
-     * @param array $feed   Feed details array with <b>password</b>, <b>title</b>, <b>readme</b>, and <b>is_enabled</b> keys.
+     * @param array $feed Feed details array with <b>password</b>, <b>title</b>, <b>readme</b>, and <b>is_enabled</b> keys.
      *
      * @throws SharedownException
      */
-    public function setFeed(array $feed) {
-        $this->post('/feed', array_intersect_key($feed, [
+    public function setFeedDetails(array $feed) {
+        $this->post('/api/feed', array_intersect_key($feed, [
             'password' => null,
             'title' => null,
             'readme' => null,
@@ -390,12 +427,12 @@ class Sharedown {
     /**
      * Returns list of users.
      *
-     * @return array    Array of user details arrays.
+     * @return array Array of user details arrays.
      *
      * @throws SharedownException
      */
     public function getUsers() {
-        return $this->get('/users', true);
+        return $this->get('/api/users', true);
     }
 
     /**
@@ -403,24 +440,24 @@ class Sharedown {
      *
      * @param string $login Login of the user.
      *
-     * @return array        User details array.
+     * @return array User details array.
      *
      * @throws SharedownException
      */
     public function getUser($login) {
-        return $this->get('/users/' . $login, true);
+        return $this->get('/api/users/' . $login, true);
     }
 
     /**
      * Updates the user details.
      *
      * @param string $login Login of the user.
-     * @param array $user   User details array with <b>login</b>, <b>level</b>, <b>password</b>, and/or <b>is_enabled</b> keys.
+     * @param array  $user  User details array with <b>login</b>, <b>level</b>, <b>password</b>, and/or <b>is_enabled</b> keys.
      *
      * @throws SharedownException
      */
     public function setUser($login, array $user) {
-        $this->patch('/users/' . $login, array_intersect_key($user, [
+        $this->patch('/api/users/' . $login, array_intersect_key($user, [
             'login' => null,
             'level' => null,
             'password' => null,
@@ -431,12 +468,12 @@ class Sharedown {
     /**
      * Adds new user.
      *
-     * @param array $user   User details array with <b>login</b>, <b>level</b>, <b>password</b>, and <b>is_enabled</b> keys.
+     * @param array $user User details array with <b>login</b>, <b>level</b>, <b>password</b>, and <b>is_enabled</b> keys.
      *
      * @throws SharedownException
      */
     public function addUser(array $user) {
-        $this->post('/users', array_intersect_key($user, [
+        $this->post('/api/users', array_intersect_key($user, [
             'login' => null,
             'level' => null,
             'password' => null,
@@ -452,7 +489,7 @@ class Sharedown {
      * @throws SharedownException
      */
     public function removeUser($login) {
-        $this->delete('/users/' . $login, true);
+        $this->delete('/api/users/' . $login, true);
     }
 
 }
