@@ -1,5 +1,10 @@
 <?php
 /**
+ * General exception for Sharedown project client library.
+ *
+ * @author Alexander Lokhman <alex.lokhman@gmail.com>
+ * @link https://github.com/lokhman/sharedown-php
+ *
  * Copyright (c) 2016 Alexander Lokhman <alex.lokhman@gmail.com>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -19,13 +24,6 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
- */
-
-/**
- * General exception for Sharedown project client library.
- *
- * @author Alexander Lokhman <alex.lokhman@gmail.com>
- * @link https://github.com/lokhman/sharedown-php
  */
 class SharedownException extends Exception {
 
