@@ -171,6 +171,23 @@ class Sharedown {
     }
 
     /**
+     * Performs PUT request to the server API.
+     *
+     * @param string $uri        Request URI, e.g. <b>"/files"</b>.
+     * @param mixed  $data       [optional] <p>Data to pass with the request.</p>
+     * @param bool   $isStateful [optional] <p>If the request is stateful.</p>
+     * @param array  $params     [optional] <p>Additional query string parameters.</p>
+     * @param array  $headers    [optional] <p>Additional headers.</p>
+     *
+     * @return mixed JSON decoded data, usually an array of values.
+     *
+     * @throws SharedownException
+     */
+    protected function put($uri, $data, $isStateful = false, array $params = [], array &$headers = []) {
+        return $this->request('PUT', $uri, $data, $isStateful, $params, $headers);
+    }
+
+    /**
      * Performs PATCH request to the server API.
      *
      * @param string $uri        Request URI, e.g. <b>"/files"</b>.
@@ -323,7 +340,7 @@ class Sharedown {
         if (is_string($contentType) && $contentType) {
             $headers['Content-Type'] = $contentType;
         }
-        return $this->post('/api/upload', $file, true, [], $headers)['key'];
+        return $this->put('/api/upload', $file, true, [], $headers)['key'];
     }
 
     /**
